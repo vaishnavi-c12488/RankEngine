@@ -1,0 +1,16 @@
+{
+  "evaluation_scope": "Official test judgments only; BM25 and LambdaMART rank the judged candidate products for each query. This does not measure full-catalog retrieval or dense retrieval.",
+  "relevant_threshold": 3,
+  "bm25_judged_candidates": {
+    "ndcg_at_10": 0.7674783862280687,
+    "mrr": 0.7543513718970821,
+    "precision_at_5": 0.5629828918322296,
+    "evaluated_queries": 14496
+  },
+  "lambdamart_judged_candidates": {
+    "ndcg_at_10": 0.7872914656098331,
+    "mrr": 0.7909342037628679,
+    "precision_at_5": 0.58780353200883,
+    "evaluated_queries": 14496
+  }
+}

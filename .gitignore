@@ -1,0 +1,20 @@
+node_modules/
+dist/
+.env
+.env.local
+__pycache__/
+.pytest_cache/
+data/raw/
+data/index/
+
+# Local Python environment
+.venv/
+
+# Processed datasets
+/data/processed/
+
+# Local deployment backups
+/deployment-backup-*/
+
+# Production environment variables
+**/.env.production

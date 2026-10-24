@@ -1,0 +1,15 @@
+
+pandas
+numpy
+scikit-learn
+sentence-transformers
+lightgbm
+rank-bm25
+qdrant-client
+fastapi
+uvicorn
+streamlit
+pydantic
+pytest
+httpx
+requests

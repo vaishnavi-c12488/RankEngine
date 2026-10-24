@@ -1,0 +1,14 @@
+{
+  "scope": "Development-subset Qdrant index only; not full-catalog retrieval. Recall is measured against exact-relevant (E, relevance >= 3) judged products. Relevant products absent from the index count as missed.",
+  "index_path": "C:\\Users\\Vaishnavi chavan\\Documents\\Rankengine-website\\data\\index\\qdrant",
+  "sample_seed": 42,
+  "sampled_query_groups": 500,
+  "evaluated_query_groups": 500,
+  "groups_without_exact_relevant_judgments": 0,
+  "relevance_threshold": 3,
+  "recall_at_k": {
+    "10": 0.003126846193022664,
+    "50": 0.0062489380796306795,
+    "100": 0.006989678820371421
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "model": "LightGBM LGBMRanker",
+  "objective": "lambdarank",
+  "model_file": "ranking\\model_registry\\lambdamart.txt",
+  "feature_columns": [
+    "query_token_count",
+    "title_token_count",
+    "query_title_overlap",
+    "query_title_jaccard",
+    "query_full_text_overlap",
+    "title_contains_query",
+    "product_brand_present",
+    "product_color_present",
+    "title_length",
+    "description_length",
+    "bullet_point_length"
+  ],
+  "label_gain": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "label_column": "relevance",
+  "group_columns": [
+    "query_id",
+    "product_locale"
+  ],
+  "training_rows": 664907,
+  "validation_rows": 116731,
+  "training_query_groups": 28733,
+  "validation_query_groups": 5071,
+  "validation_ndcg_at_10": 0.7875880680489846,
+  "best_iteration": 97,
+  "random_seed": 42
+}

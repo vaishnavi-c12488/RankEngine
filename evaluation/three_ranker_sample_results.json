@@ -1,0 +1,34 @@
+{
+  "scope": "Reproducible 500-query-group sample of official test judgments. All judged candidates for sampled queries are ranked. This is not full-test evaluation, full-catalog retrieval, or Recall@K.",
+  "sample_seed": 42,
+  "sampled_query_groups": 500,
+  "sampled_judged_rows": 11415,
+  "relevance_mapping": {
+    "E": 3,
+    "S": 2,
+    "C": 1,
+    "I": 0
+  },
+  "binary_relevant_threshold": 3,
+  "product_encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "results": {
+    "bm25": {
+      "ndcg_at_10": 0.7667185441970937,
+      "mrr": 0.7593116068142383,
+      "precision_at_5": 0.5512,
+      "evaluated_queries": 500
+    },
+    "bi_encoder": {
+      "ndcg_at_10": 0.7671096924354085,
+      "mrr": 0.7411465726465726,
+      "precision_at_5": 0.5352,
+      "evaluated_queries": 500
+    },
+    "lambdamart": {
+      "ndcg_at_10": 0.7817310111066433,
+      "mrr": 0.7943539904539905,
+      "precision_at_5": 0.5732,
+      "evaluated_queries": 500
+    }
+  }
+}

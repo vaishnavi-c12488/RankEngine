@@ -1,0 +1,16 @@
+﻿.venv
+venv
+node_modules
+frontend/node_modules
+frontend/dist
+dist
+.git
+.pytest_cache
+__pycache__
+*.pyc
+.env
+.env.*
+data/raw
+data/index/qdrant/collection
+data/index/qdrant/.lock
+deployment-backup-*

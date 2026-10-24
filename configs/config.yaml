@@ -1,0 +1,51 @@
+
+project:
+  name: RankEngine
+  random_seed: 42
+
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  examples_file: data/raw/shopping_queries_dataset_examples.parquet
+  products_file: data/raw/shopping_queries_dataset_products.parquet
+  train_file: data/processed/task1_train.parquet
+  test_file: data/processed/task1_test.parquet
+
+columns:
+  query: query
+  query_id: query_id
+  product_id: product_id
+  product_locale: product_locale
+  product_title: product_title
+  product_description: product_description
+  product_bullet_point: product_bullet_point
+  product_brand: product_brand
+  product_color: product_color
+  relevance_label: esci_label
+
+relevance:
+  exact: 3
+  substitute: 2
+  complement: 1
+  irrelevant: 0
+  primary_relevant_threshold: 3
+  sensitivity_relevant_threshold: 2
+
+retrieval:
+  top_k: 50
+  embedding_model: sentence-transformers/all-MiniLM-L6-v2
+  qdrant_collection: rankengine_products
+  distance: COSINE
+  index_batch_size: 256
+
+ranking:
+  objective: lambdarank
+  cutoff: 10
+  label_gain: [0, 1, 2, 3]
+
+evaluation:
+  k_values: [5, 10]
+  primary_relevant_threshold: 3
+  sensitivity_relevant_threshold: 2
+  ndcg_gain: exponential
+  random_seed: 42
