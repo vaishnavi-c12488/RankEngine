@@ -6,14 +6,15 @@ from __future__ import annotations
 from functools import lru_cache
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
 
 DEFAULT_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 
 @lru_cache(maxsize=2)
-def load_encoder(model_name: str = DEFAULT_MODEL) -> SentenceTransformer:
-    """Load and cache the sentence-transformer model."""
+def load_encoder(model_name: str = DEFAULT_MODEL):
+    """Load and cache the sentence-transformer model on demand."""
+    from sentence_transformers import SentenceTransformer
+
     return SentenceTransformer(model_name)
 
 
@@ -33,8 +34,10 @@ def encode_texts(
 
     if not normalized_texts:
         model = load_encoder(model_name)
-        return np.empty((0, model.get_sentence_embedding_dimension()),
-                        dtype=np.float32)
+        return np.empty(
+            (0, model.get_sentence_embedding_dimension()),
+            dtype=np.float32,
+        )
 
     model = load_encoder(model_name)
     vectors = model.encode(
