@@ -65,11 +65,7 @@ class SearchResponse(BaseModel):
 
 
 class ProductDetail(BaseModel):
-    """Full catalog record for one product, as stored in the index payload.
-
-    The source catalog (Amazon ESCI) has no image, price or rating fields,
-    so none are returned here.
-    """
+    """Full catalog record for one product, as stored in the index payload."""
 
     product_id: str
     locale: str
@@ -92,17 +88,20 @@ class IndexInfo(BaseModel):
 async def lifespan(app: FastAPI):
     """Load the configured Qdrant collection and LambdaMART model."""
     if not MODEL_PATH.is_file():
-        raise RuntimeError(
-            f"LambdaMART model not found: {MODEL_PATH}"
-        )
+        raise RuntimeError(f"LambdaMART model not found: {MODEL_PATH}")
 
     qdrant_url = os.getenv("QDRANT_URL", "").strip()
+    qdrant_api_key = os.getenv("QDRANT_API_KEY", "").strip()
 
     if qdrant_url:
-        # Server mode: for example, http://qdrant:6333 in Docker Compose.
-        client = QdrantClient(url=qdrant_url)
+        # Server mode supports Qdrant Cloud and local Docker Qdrant.
+        client = QdrantClient(
+            url=qdrant_url,
+            api_key=qdrant_api_key or None,
+            timeout=60,
+        )
     else:
-        # Local mode: preserve the existing embedded Qdrant index.
+        # Preserve the existing embedded local index.
         if not INDEX_DIR.is_dir():
             raise RuntimeError(
                 f"Qdrant index directory not found: {INDEX_DIR}"
@@ -119,8 +118,7 @@ async def lifespan(app: FastAPI):
         model_features = model.feature_name()
 
         missing = [
-            name
-            for name in model_features
+            name for name in model_features
             if name not in FEATURE_COLUMNS
         ]
         if missing:
@@ -148,8 +146,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Browser origins allowed to call the API.
-# Override for non-local deployments using RANKENGINE_CORS_ORIGINS.
 _cors_origins = [
     origin.strip()
     for origin in os.getenv(
@@ -230,7 +226,6 @@ def get_product(product_id: str, locale: Locale = "us"):
 
     payload = (points[0].payload or {}) if points else {}
 
-    # Guard against any ID collision: the payload must match the request.
     if (
         not payload
         or str(payload.get("product_id")) != product_id
@@ -306,9 +301,7 @@ def search_products(request: SearchRequest):
             payload = point.payload or {}
             records.append(
                 {
-                    "product_id": str(
-                        payload.get("product_id", "")
-                    ),
+                    "product_id": str(payload.get("product_id", "")),
                     "product_locale": str(
                         payload.get("product_locale", request.locale)
                     ),
