@@ -1,0 +1,13 @@
+{
+    "collection":  "rankengine_products",
+    "model":  "sentence-transformers/all-MiniLM-L6-v2",
+    "product_count":  24063,
+    "locales":  {
+                    "es":  14063,
+                    "jp":  5000,
+                    "us":  5000
+                },
+    "vector_size":  384,
+    "development_subset":  true,
+    "limit_per_locale":  5000
+}
