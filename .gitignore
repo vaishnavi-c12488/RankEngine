@@ -21,3 +21,10 @@ data/index/
 
 # Production environment variables
 **/.env.production
+
+# Local Qdrant database files
+data/index/qdrant/.lock
+data/index/qdrant/collection/
+data/index/qdrant/index_metadata.backup.json
+data/index/qdrant/meta.json
+data/index/qdrant_full/
