@@ -8,6 +8,8 @@ ENV OMP_NUM_THREADS=1
 ENV OPENBLAS_NUM_THREADS=1
 ENV MKL_NUM_THREADS=1
 ENV NUMEXPR_NUM_THREADS=1
+ENV TOKENIZERS_PARALLELISM=false
+
 WORKDIR /app
 
 RUN apt-get update \
@@ -15,7 +17,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
+
 RUN python -m pip install --upgrade pip \
+    && python -m pip install \
+       --index-url https://download.pytorch.org/whl/cpu \
+       torch \
     && python -m pip install -r requirements.txt
 
 COPY api ./api

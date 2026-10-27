@@ -15,7 +15,7 @@ def load_encoder(model_name: str = DEFAULT_MODEL):
     """Load and cache the sentence-transformer model on demand."""
     from sentence_transformers import SentenceTransformer
 
-    return SentenceTransformer(model_name)
+    return SentenceTransformer(model_name, device="cpu")
 
 
 def encode_texts(
